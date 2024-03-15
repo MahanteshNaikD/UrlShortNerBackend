@@ -53,3 +53,6 @@ All routes of project
 5. analytics of particular url by passing urlCode and token --->http://localhost:3001/Url/analytics
 6. getSources of particular url by passing urlCode and token ---> http://localhost:3001/Url/getSources
 
+
+
+Added Postman Collection for reference

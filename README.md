@@ -18,6 +18,16 @@ npm install
 
 nest start --watch
 
+
+for unit testing run follwing command
+
+jest
+
+for code coverage
+
+jest --coverage
+
+
 helath check of project  will run on http://localhost:3001/Url/
 
 project consist of three module for routing

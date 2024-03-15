@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JobService } from './job.service';
-import { UrlSchema } from 'src/Models/Url';
+import { UrlSchema } from '../Models/Url';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 

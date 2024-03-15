@@ -1,73 +1,54 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+UrlShortner Project Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+* The Project will create the shortner url from actual url  
+* In Project Authntication and Authorization handled for every user can access the own url
+* Url analyctis handled based on users url
+* After getting shortner url hit the url it redirct to original orl address and 
+* Every url clicks and source is maintained
 
-## Description
+project build on Nodejs libarary and NestJs Framework with TypeScript and Mongodb as Database
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+project will run on 3001 local host port
 
-## Installation
 
-```bash
-$ npm install
-```
+run project by follwing command
 
-## Running the app
+npm install
 
-```bash
-# development
-$ npm run start
+nest start --watch
 
-# watch mode
-$ npm run start:dev
+helath check of project  will run on http://localhost:3001/Url/
 
-# production mode
-$ npm run start:prod
-```
+project consist of three module for routing
+1. Url ---> url generation, url: http://localhost:3001/Url/
+2. UserModule ---> User creation, url: http://localhost:3001/user/
+3. Auth ---> Authitication for User, url : http://localhost:3001/auth/
 
-## Test
+4. Sheduled ---> for Cron Job
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+Used Dependecy for project
+1. Nodejs ---> libraray
+2. Nestjs ---> Framework
+3. Mongoose ---> Database
+4. jwt ---> Authentication and Authorization
+5. helmet ---> Headers Security
+6. nanoid ---> Random String generator
+7. bcryptjs ---> Encription 
+8. schedule ---> Job schedule
+9. throttler ---> Rate Limiting
+10. express-useragent ---> Browser information
+11. cache-manager ---> store and retrive of data form memory
 
-# test coverage
-$ npm run test:cov
-```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+All routes of project
 
-## Stay in touch
+1. user creation --->  http://localhost:3001/user/createUser
+2. user login ---> http://localhost:3001/auth/login for token 
+3. generate url by passing token and original url--->  http://localhost:3001/Url/generateUrl
+4. get the url by passing urlCode ---> http://localhost:3001/Url/code?code=xxxxxxxxxxxxxx
+5. analytics of particular url by passing urlCode and token --->http://localhost:3001/Url/analytics
+6. getSources of particular url by passing urlCode and token ---> http://localhost:3001/Url/getSources
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

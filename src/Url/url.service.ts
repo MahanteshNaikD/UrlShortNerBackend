@@ -2,20 +2,22 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Url } from 'src/Models/Url';
-import isValidUrl from 'src/Shared/commanFuntions';
+import isValidUrl from '../Shared/commanFuntions';
 import * as nanoid from 'nanoid';
 import { Model } from 'mongoose';
 import { CACHE_MANAGER ,Cache} from '@nestjs/cache-manager';
+import { UrlDto } from 'src/Dtos/userDto';
 
 @Injectable()
 export class UrlService {
   constructor(
-    private readonly jwtService: JwtService,
+   
     @InjectModel('Url') private urlService: Model<Url>,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private readonly jwtService: JwtService,
   ) {}
   getHello(): string {
-    return 'Hello World!';
+    return 'Hello check!';
   }
 
   async validate(headers: any) {
@@ -27,9 +29,9 @@ export class UrlService {
   }
   
 
-  async generateShortUrl(bodyInput: any, headres) {
-    const { url } = bodyInput;
-    if (!isValidUrl(url)) {
+  async generateShortUrl(bodyInput: any, headres:string) {
+    const { urlCode } = bodyInput;
+    if (!isValidUrl(urlCode)) {
       return { message: 'Invalid URL format' };
     }
     const user = await this.validate(headres);
@@ -37,7 +39,7 @@ export class UrlService {
 
     const shortUrl = `http://localhost:${3001}/${urlId}`;
 
-    let urlFind = await this.urlService.findOne({ originalUrl: url });
+    let urlFind = await this.urlService.findOne({ originalUrl: urlCode });
     if (urlFind) {
       return {
         urlCode: urlFind.urlCode,
@@ -51,7 +53,7 @@ export class UrlService {
         // console.log(da)
         await this.urlService.create({
           urlCode: urlId,
-          originalUrl: url,
+          originalUrl: urlCode,
           shortUrl: shortUrl,
           createdAt: Math.floor(new Date().getTime()),
           expirationTime: Math.floor(new Date().getTime()) + 10 * 60 * 1000,
@@ -61,7 +63,7 @@ export class UrlService {
 
         return {
           urlCode: urlId,
-          originalUrl: url,
+          originalUrl: urlCode,
           shortUrl: shortUrl,
           statusCode: 201,
         };
@@ -128,7 +130,7 @@ export class UrlService {
   }
 
   async analytices(userBody: any, headres: any) {
-    let userFind = await this.urlService.findOne({ urlCode: userBody.url });
+    let userFind = await this.urlService.findOne({ urlCode: userBody.urlCode });
     let user = await this.validate(headres);
     if (userFind.userId !== user.userName) {
       return {
@@ -139,7 +141,7 @@ export class UrlService {
     const data = await this.urlService.aggregate([
       {
         $match: {
-          urlCode: userBody.url,
+          urlCode: userBody.urlCode,
         },
       },
       {
@@ -211,14 +213,17 @@ export class UrlService {
 
     let mostActive = result.find((value) => value['count'] === mostHour);
 
-    result.push({
-      mostActiveHout: mostActive['hour'],
-    });
+    if(mostActive){
+      result.push({
+        mostActiveHout: mostActive['hour'],
+      });
+    }
+
     return result;
   }
 
-  async getSources(userBody: any, header: any) {
-    let userFind = await this.urlService.findOne({ urlCode: userBody.url });
+  async getSources(userBody: UrlDto, header: any) {
+    let userFind = await this.urlService.findOne({ urlCode: userBody.urlCode });
     let user = await this.validate(header);
     if (userFind.userId !== user.userName) {
       return {
@@ -230,7 +235,7 @@ export class UrlService {
     const data = await this.urlService.aggregate([
       {
         $match: {
-          urlCode: userBody.url,
+          urlCode: userBody.urlCode,
         },
       },
       {

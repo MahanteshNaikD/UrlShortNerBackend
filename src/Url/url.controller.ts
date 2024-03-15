@@ -11,8 +11,9 @@ import {
   Req,
 } from '@nestjs/common';
 import { UrlService } from '../Url/url.service';
-import { AuthGuard } from 'src/Auth/auth.guard';
+import { AuthGuard } from '../Auth/auth.guard';
 import { Throttle } from '@nestjs/throttler';
+import { UrlDto } from '../Dtos/userDto';
 
 @Controller('Url')
 export class UrlController {
@@ -27,20 +28,19 @@ export class UrlController {
   @UseGuards(AuthGuard)
   @Post('generateUrl')
   @Header('Content-Type', 'application/json')
-  generateShortUrl(@Body() userBody: any, @Headers() header) {
+  generateShortUrl(@Body() userBody: UrlDto, @Headers() header) {
     return this.urlService.generateShortUrl(userBody,header);
   }
 
 
 
-  @Throttle({ default: { limit: 1, ttl: 60000 } })
+  @Throttle({ default: { limit: 2, ttl: 60000 } })
   @Header('Content-Type', 'application/json')
   @Get('code')
   async redirect(
     @Res() res,
     @Query('code')
     code: string,
-    @Headers() header,
     @Req() req: Request
   ) {
     const url = await this.urlService.redirect(code,req);
@@ -63,7 +63,7 @@ export class UrlController {
   @UseGuards(AuthGuard)
   @Header('Content-Type', 'application/json')
   @Post('getSources')
-  async getSources(@Body() userBody: any, @Headers() header){
+  async getSources(@Body() userBody: UrlDto, @Headers() header){
      return this.urlService.getSources(userBody,header);
   }
 }

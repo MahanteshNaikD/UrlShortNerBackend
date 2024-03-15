@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UrlSchema } from 'src/Models/Url';
+import { UrlSchema } from '../Models/Url';
 import { UrlController } from './url.controller';
 import { UrlService } from './url.service';
 import { CacheModule } from '@nestjs/cache-manager';

@@ -25,7 +25,8 @@ project consist of three module for routing
 2. UserModule ---> User creation, url: http://localhost:3001/user/
 3. Auth ---> Authitication for User, url : http://localhost:3001/auth/
 
-4. Sheduled ---> for Cron Job
+4. Sheduled ---> for Cron Job 
+* auto delection of experied links runs every 20 min
 
 
 Used Dependecy for project

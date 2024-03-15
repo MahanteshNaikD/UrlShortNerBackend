@@ -31,7 +31,7 @@ describe('userController', () => {
   });
 
   after(async () => {
-    await mongoose.connection.dropDatabase(); // Cleanup after each test
+    await mongoose.connection.dropDatabase(); 
     await mongoose.connection.close();
   });
 
@@ -84,13 +84,7 @@ describe('userController', () => {
     it('should return "Created Sccessfully"', async () => {
       const result = await userService.findOne('Mahantesh');
 
-      expect(result).toBe({
-        __v: 0,
-        _id: '65f44af00a32531e6268ca2d',
-        password:
-          '$2a$10$HklZd2afS2VtPzvIwy9nSepuG5o7qsBE0W5Zdew.975RsOJNoqlaC',
-        userName: 'Mahantesh',
-      });
+      expect(result).toBe({});
     }, 40000);
   });
 });

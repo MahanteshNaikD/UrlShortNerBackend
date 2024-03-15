@@ -5,6 +5,7 @@ import { UrlController } from './url.controller';
 import { UrlService } from './url.service';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { ConfigModule } from '@nestjs/config';
         schema: UrlSchema,
       }
     ]),
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot(),
     CacheModule.register({isGlobal:true}),
   ],
   controllers: [UrlController],

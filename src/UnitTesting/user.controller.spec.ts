@@ -35,10 +35,10 @@ describe('userController', () => {
     await mongoose.connection.close();
   });
 
-  describe('create user', () => {
+  describe('UserController', () => {
     it('should return "Created Sccessfully"', async () => {
       const newUserData: UserDto = {
-        userName: 'John Doe',
+        userName: `${new Date().getTime().toString()}`,
         password: '1234567',
       };
       const result = await userController.createUser(newUserData);
@@ -47,10 +47,10 @@ describe('userController', () => {
         message: 'User Created Sccessfully',
         statusCode: 201,
       });
-    }, 40000);
+    });
   });
 
-  describe('user alerady present', () => {
+  describe('UserController', () => {
     it('should return User Already Present', async () => {
       const newUserData: UserDto = {
         userName: 'Mahantesh',
@@ -62,10 +62,10 @@ describe('userController', () => {
         message: 'User Already Present',
         statusCode: 201,
       });
-    }, 40000);
+    });
   });
 
-  describe('user alerady present', () => {
+  describe('UserService', () => {
     it('should return User Already Present', async () => {
       const newUserData: UserDto = {
         userName: 'Mahantesh',
@@ -77,14 +77,14 @@ describe('userController', () => {
         message: 'User Already Present',
         statusCode: 201,
       });
-    }, 40000);
+    });
   });
 
-  describe('create user', () => {
-    it('should return "Created Sccessfully"', async () => {
+  describe('UserService', () => {
+    it('should return find One', async () => {
       const result = await userService.findOne('Mahantesh');
 
-      expect(result).toBe({});
-    }, 40000);
+      expect(result.userName).toBe('Mahantesh');
+    });
   });
 });

@@ -29,7 +29,7 @@ export class UrlService {
   }
   
 
-  async generateShortUrl(bodyInput: any, headres:string) {
+  async generateShortUrl(bodyInput: any, headres:any) {
     const { urlCode } = bodyInput;
     if (!isValidUrl(urlCode)) {
       return { message: 'Invalid URL format' };

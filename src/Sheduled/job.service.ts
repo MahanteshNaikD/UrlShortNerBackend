@@ -8,7 +8,7 @@ import { Url } from 'src/Models/Url';
 export class JobService {
   constructor(@InjectModel('Url') private urlService: Model<Url>) {}
 
-  // @Cron('*/20 * * * * ')
+  @Cron('*/20 * * * * ')
   async autoDeleteLink() {
     console.log('cron job started');
     const findAll = await this.urlService.aggregate([
